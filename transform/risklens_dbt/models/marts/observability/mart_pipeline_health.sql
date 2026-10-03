@@ -7,5 +7,4 @@
 -- test outcomes to a dedicated table each run and query that here. Choose
 -- an approach and document it in docs/runbook.md.
 
-select
-    null as run_date  -- TODO
+select null as run_date  -- TODO

@@ -3,5 +3,4 @@
 -- covering your chosen date range, with year/quarter/month columns needed
 -- for the vintage/cohort analytics in FR-5.
 
-select
-    null as date_key  -- TODO
+select null as date_key  -- TODO

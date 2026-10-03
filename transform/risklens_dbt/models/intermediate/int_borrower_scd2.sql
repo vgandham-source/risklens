@@ -7,5 +7,4 @@
 -- use directly, renamed to something more business-friendly if you prefer
 -- (e.g., valid_from, valid_to, is_current).
 
-select
-    null as borrower_id  -- TODO
+select null as borrower_id  -- TODO

@@ -6,5 +6,4 @@
 -- state AT LOAN ISSUANCE (i.e., join dim_borrower on the effective-dated
 -- key, not just borrower_id) to avoid data leakage from the future.
 
-select
-    null as loan_id  -- TODO
+select null as loan_id  -- TODO

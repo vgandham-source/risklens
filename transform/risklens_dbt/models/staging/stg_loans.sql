@@ -6,5 +6,4 @@
 -- and dedupe on the natural key. Do not join to other entities here — that
 -- happens in intermediate/ or marts/.
 
-select
-    null as loan_id  -- TODO
+select null as loan_id  -- TODO

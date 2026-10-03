@@ -5,5 +5,4 @@
 -- documented interface (surrogate key + natural key + effective-dating
 -- columns + is_current flag) for fact_loans to join against.
 
-select
-    null as borrower_key  -- TODO
+select null as borrower_key  -- TODO

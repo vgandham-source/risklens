@@ -7,5 +7,4 @@
 -- carefully about which timestamp (event date vs. ingestion date) downstream
 -- aggregates should key off of.
 
-select
-    null as payment_id  -- TODO
+select null as payment_id  -- TODO

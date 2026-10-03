@@ -8,5 +8,4 @@
 -- (e.g., final loan_status), which would make this unusable for a real
 -- future model.
 
-select
-    null as loan_id  -- TODO
+select null as loan_id  -- TODO

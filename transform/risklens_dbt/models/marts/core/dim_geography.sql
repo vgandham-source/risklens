@@ -3,5 +3,4 @@
 -- Definition doc (state code -> state name -> region) — build or source a
 -- small static table and seed it (see dbt seeds, or a static CTE here).
 
-select
-    null as geography_key  -- TODO
+select null as geography_key  -- TODO
