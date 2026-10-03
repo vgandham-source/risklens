@@ -1,5 +1,5 @@
 # RiskLens — Loan Portfolio Risk Analytics Platform
-###  Data Engineering Industry Program — Project Charter (Step 1 of 4)
+###  Data Engineering Industry Program — Project Charter
 
 ---
 
@@ -7,7 +7,7 @@
 
 - **Format:** 12-week, self-directed project-based learning. No classroom sessions.
 - **Working mode:** Solo implementation, individually assigned.
-- **Philosophy:** Engineers learn data engineering principles *through building*, not through lectures. This document — plus the dataset spec, weekly milestones, and GitHub starter repo that follow — is their primary source of truth.
+- **Philosophy:** Fellow learns data engineering principles *through building*, not through lectures. This document — plus the dataset spec, weekly milestones, and GitHub starter repo is primary source of truth.
 
 ---
 
