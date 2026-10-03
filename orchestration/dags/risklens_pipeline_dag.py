@@ -22,7 +22,7 @@ Dagster instead, replace this file with an equivalent job/asset definition
 under orchestration/ and update docs/runbook.md accordingly.
 """
 
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 from airflow import DAG
 from airflow.operators.python import PythonOperator
@@ -59,7 +59,7 @@ with DAG(
     default_args=default_args,
     description="Bronze -> Silver -> Gold batch pipeline for RiskLens",
     schedule_interval="@daily",
-    start_date=datetime(2024, 1, 1),
+    start_date=datetime(2024, 1, 1, tzinfo=timezone.utc),
     catchup=False,  # TODO: revisit for backfill support (FR-4)
     tags=["risklens", "bronze", "silver", "gold"],
 ) as dag:
