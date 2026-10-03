@@ -60,6 +60,19 @@ jobs:
       - name: SQL lint
         working-directory: transform/risklens_dbt
         run: sqlfluff lint models --dialect duckdb
+      - name: Write CI profiles.yml
+        working-directory: transform/risklens_dbt
+        run: |
+          cat > profiles.yml <<'EOF'
+          risklens_dbt:
+            target: ci
+            outputs:
+              ci:
+                type: duckdb
+                path: ci.duckdb
+                schema: silver
+                threads: 2
+          EOF
       - name: dbt deps
         working-directory: transform/risklens_dbt
         run: dbt deps

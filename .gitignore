@@ -11,6 +11,8 @@ target/
 dbt_packages/
 logs/
 *.log
+transform/risklens_dbt/profiles.yml
+transform/risklens_dbt/*.duckdb
 
 # Terraform
 **/.terraform/*
