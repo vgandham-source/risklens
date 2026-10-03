@@ -1,0 +1,15 @@
+version: 2
+
+sources:
+  - name: bronze
+    description: >
+      Raw, as-ingested loan/payment/rejection data. See FR-1 and
+      docs/data_dictionary.md. Bronze tables are append-only and immutable —
+      staging models below must not mutate them.
+    schema: bronze  # TODO: adjust to match your warehouse schema naming
+    tables:
+      - name: loans_accepted_raw
+      - name: loans_rejected_raw
+      - name: payments_raw
+      - name: borrower_history_raw   # from ingestion/synthetic/borrower_scd_generator.py
+      - name: streaming_events_raw   # from ingestion/streaming (FR-6)

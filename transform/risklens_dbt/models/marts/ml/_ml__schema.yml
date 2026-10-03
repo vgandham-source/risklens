@@ -1,0 +1,9 @@
+version: 2
+
+models:
+  - name: ml_features
+    description: >
+      Point-in-time correct feature table suitable for feeding a future
+      risk-scoring model. No model is trained as part of this project —
+      the deliverable is this pipeline itself. See Scope section of the
+      Project Charter.

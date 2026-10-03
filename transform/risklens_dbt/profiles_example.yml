@@ -1,0 +1,48 @@
+# Copy relevant sections into ~/.dbt/profiles.yml (or set DBT_PROFILES_DIR
+# to this repo and rename this file to profiles.yml — gitignored either way,
+# never commit real credentials).
+#
+# The `ci` target uses DuckDB so pull requests can run `dbt build` without
+# real warehouse credentials (see .github/workflows/ci.yml).
+
+risklens_dbt:
+  target: dev
+  outputs:
+    dev:
+      type: snowflake
+      account: "{{ env_var('SNOWFLAKE_ACCOUNT') }}"
+      user: "{{ env_var('SNOWFLAKE_USER') }}"
+      password: "{{ env_var('SNOWFLAKE_PASSWORD') }}"
+      role: "{{ env_var('SNOWFLAKE_ROLE') }}"
+      warehouse: "{{ env_var('SNOWFLAKE_WAREHOUSE') }}"
+      database: risklens_dev
+      schema: silver
+      threads: 4
+
+    staging:
+      type: snowflake
+      account: "{{ env_var('SNOWFLAKE_ACCOUNT') }}"
+      user: "{{ env_var('SNOWFLAKE_USER') }}"
+      password: "{{ env_var('SNOWFLAKE_PASSWORD') }}"
+      role: "{{ env_var('SNOWFLAKE_ROLE') }}"
+      warehouse: "{{ env_var('SNOWFLAKE_WAREHOUSE') }}"
+      database: risklens_staging
+      schema: silver
+      threads: 4
+
+    prod:
+      type: snowflake
+      account: "{{ env_var('SNOWFLAKE_ACCOUNT') }}"
+      user: "{{ env_var('SNOWFLAKE_USER') }}"
+      password: "{{ env_var('SNOWFLAKE_PASSWORD') }}"
+      role: "{{ env_var('SNOWFLAKE_ROLE') }}"
+      warehouse: "{{ env_var('SNOWFLAKE_WAREHOUSE') }}"
+      database: risklens_prod
+      schema: silver
+      threads: 4
+
+    ci:
+      type: duckdb
+      path: ci.duckdb
+      schema: silver
+      threads: 2

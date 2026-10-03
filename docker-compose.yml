@@ -1,0 +1,55 @@
+# Local development stack only. Snowflake/BigQuery remain cloud-hosted —
+# this compose file exists to run orchestration + streaming locally without
+# needing any cloud account beyond the warehouse itself.
+#
+# Usage: make docker-up / make docker-down
+
+services:
+  airflow:
+    build:
+      context: ./docker/airflow
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./orchestration/dags:/opt/airflow/dags
+      - ./orchestration/plugins:/opt/airflow/plugins
+      - ./orchestration/config:/opt/airflow/config
+    env_file:
+      - .env
+    depends_on:
+      - redpanda
+
+  dbt:
+    build:
+      context: ./docker/dbt
+    volumes:
+      - ./transform/risklens_dbt:/usr/app
+    env_file:
+      - .env
+    # `docker compose run dbt <command>` for one-off dbt invocations,
+    # e.g. `docker compose run dbt run --select staging`
+
+  redpanda:
+    image: redpandadata/redpanda:latest
+    command:
+      - redpanda
+      - start
+      - --smp=1
+      - --memory=1G
+      - --overprovisioned
+      - --node-id=0
+      - --kafka-addr=PLAINTEXT://0.0.0.0:9092
+      - --advertise-kafka-addr=PLAINTEXT://redpanda:9092
+    ports:
+      - "9092:9092"
+
+  streaming-producer:
+    build:
+      context: ./docker/ingestion
+    command: ["python", "ingestion/streaming/producer.py"]
+    volumes:
+      - ./ingestion:/app/ingestion
+    env_file:
+      - .env
+    depends_on:
+      - redpanda

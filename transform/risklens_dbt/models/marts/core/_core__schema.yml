@@ -1,0 +1,28 @@
+version: 2
+
+models:
+  - name: fact_loans
+    description: >
+      Grain: one row per loan. Point-in-time correct — must reflect what
+      was known at loan issuance (FR-2). See docs/data_dictionary.md.
+    columns:
+      - name: loan_id
+        tests: [unique, not_null]
+
+  - name: dim_borrower
+    description: SCD Type 2 borrower dimension, sourced from int_borrower_scd2.
+    columns:
+      - name: borrower_id
+        tests: [not_null]
+
+  - name: dim_time
+    description: Standard date/time dimension.
+
+  - name: dim_credit_grade
+    description: Loan grade/sub-grade reference dimension.
+
+  - name: dim_loan_purpose
+    description: Loan purpose reference dimension.
+
+  - name: dim_geography
+    description: State/region reference dimension (see docs/data_dictionary.md).

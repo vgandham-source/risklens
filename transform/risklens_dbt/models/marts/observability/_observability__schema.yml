@@ -1,0 +1,7 @@
+version: 2
+
+models:
+  - name: mart_pipeline_health
+    description: >
+      FR-5 required view 9: pipeline health (data quality test history,
+      ingestion volume trend, SLA adherence). Maps to FR-3 + FR-4 outputs.

@@ -1,0 +1,2 @@
+# Copy to terraform.tfvars (gitignored) and fill in for the prod environment.
+warehouse_type = "snowflake"

@@ -1,0 +1,70 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  lint-python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install ruff
+        run: pip install ruff
+      - name: Lint
+        run: ruff check .
+
+  lint-terraform:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+      - name: Terraform fmt check
+        run: terraform fmt -check -recursive infra/
+      - name: Terraform validate (dev)
+        working-directory: infra/environments/dev
+        run: |
+          terraform init -backend=false
+          terraform validate
+
+  unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install -r ingestion/requirements.txt
+      - name: Run unit tests
+        run: pytest tests/ --maxfail=1 --disable-warnings
+
+  dbt-tests:
+    runs-on: ubuntu-latest
+    needs: [lint-python, unit-tests]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dbt + sqlfluff
+        run: pip install dbt-duckdb sqlfluff sqlfluff-templater-dbt
+      # CI runs dbt against a throwaway local DuckDB target (see
+      # transform/risklens_dbt/profiles_example.yml) so pull requests don't
+      # need real warehouse credentials just to validate model logic + tests.
+      - name: SQL lint
+        working-directory: transform/risklens_dbt
+        run: sqlfluff lint models --dialect duckdb
+      - name: dbt deps
+        working-directory: transform/risklens_dbt
+        run: dbt deps
+      - name: dbt build (CI target)
+        working-directory: transform/risklens_dbt
+        run: dbt build --target ci
+        env:
+          DBT_PROFILES_DIR: .

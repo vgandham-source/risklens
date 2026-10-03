@@ -1,0 +1,33 @@
+name: 'risklens_dbt'
+version: '1.0.0'
+config-version: 2
+
+profile: 'risklens_dbt'
+
+model-paths: ["models"]
+snapshot-paths: ["snapshots"]
+macro-paths: ["macros"]
+test-paths: ["tests"]
+
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+models:
+  risklens_dbt:
+    staging:
+      +materialized: view
+      +schema: silver
+    intermediate:
+      +materialized: ephemeral
+    marts:
+      +materialized: table
+      +schema: gold
+      core:
+        +tags: ["core"]
+      risk_analytics:
+        +tags: ["risk_analytics"]
+      ml:
+        +tags: ["ml"]
+      observability:
+        +tags: ["observability"]

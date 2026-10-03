@@ -1,0 +1,19 @@
+version: 2
+
+models:
+  - name: mart_default_rate_by_grade
+    description: "FR-5 required view 1: default rate by loan grade."
+  - name: mart_default_rate_by_purpose
+    description: "FR-5 required view 2: default rate by loan purpose."
+  - name: mart_default_rate_by_geography
+    description: "FR-5 required view 3: default rate by state."
+  - name: mart_default_rate_by_segment
+    description: "FR-5 required view 4: default rate by income x DTI segment."
+  - name: mart_default_rate_by_term_and_ownership
+    description: "FR-5 required view 5: default rate by loan term and home-ownership status."
+  - name: mart_default_rate_by_vintage
+    description: "FR-5 required view 6: default rate trend by issue vintage (quarterly cohort)."
+  - name: mart_cohort_survival
+    description: "FR-5 required view 7: cohort survival analysis."
+  - name: mart_portfolio_kpis
+    description: "FR-5 required view 8: portfolio summary KPIs."

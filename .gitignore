@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.env
+
+# dbt
+target/
+dbt_packages/
+logs/
+*.log
+
+# Terraform
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+*.tfvars
+!*.tfvars.example
+crash.log
+override.tf
+override.tf.json
+
+# Docker
+*.pid
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+
+# Secrets - never commit real credentials
+*.pem
+*.key
+secrets/
+.env.*
+!.env.example
+
+# Data - raw data is never committed, see docs/data_dictionary.md
+data/raw/
+data/*.csv
+data/*.parquet
